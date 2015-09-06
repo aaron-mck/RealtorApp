@@ -1,0 +1,9 @@
+﻿@{
+    ViewBag.Title = "Home Page";
+}
+
+<div class="jumbotron">
+    <h1>My MLS Listings</h1>
+    <p>@Html.ActionLink("View Listings", "Index", "Listings", null, new { @class = "btn btn-primary btn-lg" })</p>
+    <p>@Html.ActionLink("Search Listings", "Index", "Search", null, new { @class = "btn btn-primary btn-lg" })</p>
+</div>

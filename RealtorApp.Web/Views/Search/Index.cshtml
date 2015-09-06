@@ -1,0 +1,39 @@
+﻿@model RealtorApp.DomainModel.Listing
+@{
+    ViewBag.Title = "Seach for Listing";
+}
+
+<h2>Search</h2>
+@using (Html.BeginForm())
+{
+    <div class="form-group">
+        <label for="MLS">Search By MLS</label>
+        @Html.TextBoxFor(l => l.MLS, new { @class = "form-control" })
+    </div>
+    <div class="form-group">
+        <label for="City">Search By City</label>
+        @Html.TextBoxFor(l => l.City, new { @class = "form-control" })
+    </div>
+    <div class="form-group">
+        <label for="State">Search By State</label>
+        @Html.TextBoxFor(l => l.State, new { @class = "form-control" })
+    </div>
+    <div class="form-group">
+        <label for="Zipcode">Search By Zipcode</label>
+        @Html.TextBoxFor(l => l.Zipcode, new { @class = "form-control" })
+    </div>
+    <div class="form-group">
+        <label for="Bedrooms">Search By Bedrooms</label>
+        @Html.TextBoxFor(l => l.Bedrooms, new { @class = "form-control" })
+    </div>
+    <div class="form-group">
+        <label for="Bathrooms">Search By Bathrooms</label>
+        @Html.TextBoxFor(l => l.Bathrooms, new { @class = "form-control" })
+    </div>
+    <div class="form-group">
+        <label for="SquareFeet">Search By SquareFeet</label>
+        @Html.TextBoxFor(l => l.SquareFeet, new { @class = "form-control" })
+    </div>
+
+    <input type="submit" value="Search Listings" class="btn btn-default" />
+}

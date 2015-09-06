@@ -1,0 +1,50 @@
+﻿@model IEnumerable<RealtorApp.DomainModel.Listing>
+@{
+    ViewBag.Title = "Seach for Listing";
+}
+<h2>Search Results</h2>
+@if (Model != null && Model.Count() >= 1)
+{
+    <div class="row">
+        @foreach (var item in Model)
+        {
+            <div class="col-sm-4">
+                <p>
+                    @if (item.ListingImages.Count > 0)
+                    {
+                    <p><img src="~/ListingImages/@item.ListingID/@item.ListingImages.FirstOrDefault().ImageName" alt="Alternate Text" style="max-width: 95%;" /></p>
+                    }
+                    @Html.DisplayFor(modelItem => item.MLS)<br />
+                    @Html.DisplayFor(modelItem => item.Street1)<br />
+                    @Html.DisplayFor(modelItem => item.Street2)<br />
+                    @Html.DisplayFor(modelItem => item.City)<br />
+                    @Html.DisplayFor(modelItem => item.State)<br />
+                    @Html.DisplayFor(modelItem => item.Zipcode)<br />
+                    @Html.DisplayFor(modelItem => item.Neighborhood)<br />
+                    @Html.DisplayFor(modelItem => item.SalesPrice)<br />
+                    @Html.DisplayFor(modelItem => item.DateListed)<br />
+                    @Html.DisplayFor(modelItem => item.Bedrooms)<br />
+                    @Html.DisplayFor(modelItem => item.Bathrooms)<br />
+                    @Html.DisplayFor(modelItem => item.GarageSize)<br />
+                    @Html.DisplayFor(modelItem => item.SquareFeet)<br />
+                    @Html.DisplayFor(modelItem => item.LotSize)<br />
+                    @Html.DisplayFor(modelItem => item.Description)<br />
+                    @Html.ActionLink("Details", "Details", new { id = item.ListingID })
+                    </p>
+                    @if (User.Identity.IsAuthenticated)
+                    {
+                        <p>
+                            <span> | </span>
+                            @Html.ActionLink("Edit", "Edit", new { id = item.ListingID })
+                            <span> | </span>
+                            @Html.ActionLink("Delete", "Delete", new { id = item.ListingID })
+                        </p>
+                    }
+                </div>
+        }
+    </div>
+}
+else
+{
+    <h3>Sorry, could not find any matching results</h3>
+}

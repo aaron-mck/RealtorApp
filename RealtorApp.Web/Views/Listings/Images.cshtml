@@ -1,0 +1,28 @@
+﻿@model RealtorApp.DomainModel.Listing
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Upload Images</h2>
+
+<div class="row">
+    <form action="UploadImages" method="post" enctype="multipart/form-data">
+        <input type="file" name="files" id="file1" />
+        <input type="file" name="files" id="file2" />
+        <input type="file" name="files" id="file3" />
+        <input type="file" name="files" id="file4" />
+        <input type="file" name="files" id="file5" />
+        <input type="submit" />
+    </form>
+</div>
+
+<div class="row">
+@foreach (var item in @Model.ListingImages)
+{
+    <div class="col-sm-4">
+        <img src="~/ListingImages/@item.ListingID/@item.ImageName" alt="@item.ImageName" style="max-width:95%" />
+        <a href="~/ListingImages/Delete/@item.ListingImageID">Delete</a>
+    </div>
+}
+</div>
+<p>@Html.ActionLink("Back to details", "Details", new { id = Model.ListingID })</p>

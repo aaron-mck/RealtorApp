@@ -1,0 +1,174 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="RealtorMLSModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Listing">
+          <Key>
+            <PropertyRef Name="ListingID" />
+          </Key>
+          <Property Name="MLS" Type="int" Nullable="false" />
+          <Property Name="Street1" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Street2" Type="nvarchar" MaxLength="50" />
+          <Property Name="City" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="State" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Zipcode" Type="int" Nullable="false" />
+          <Property Name="Neighborhood" Type="nvarchar" MaxLength="50" />
+          <Property Name="SalesPrice" Type="money" Nullable="false" />
+          <Property Name="DateListed" Type="date" Nullable="false" />
+          <Property Name="Bedrooms" Type="int" Nullable="false" />
+          <Property Name="Bathrooms" Type="float" Nullable="false" />
+          <Property Name="GarageSize" Type="float" />
+          <Property Name="SquareFeet" Type="int" Nullable="false" />
+          <Property Name="LotSize" Type="nvarchar" MaxLength="50" />
+          <Property Name="Description" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="ListingID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ListingImage">
+          <Key>
+            <PropertyRef Name="ListingImageID" />
+          </Key>
+          <Property Name="ListingImageID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ListingID" Type="int" Nullable="false" />
+          <Property Name="ImageName" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_ListingImage_Home">
+          <End Role="Listing" Type="Self.Listing" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="ListingImage" Type="Self.ListingImage" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Listing">
+              <PropertyRef Name="ListingID" />
+            </Principal>
+            <Dependent Role="ListingImage">
+              <PropertyRef Name="ListingID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="RealtorMLSModelStoreContainer">
+          <EntitySet Name="Listing" EntityType="Self.Listing" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ListingImage" EntityType="Self.ListingImage" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_ListingImage_Home" Association="Self.FK_ListingImage_Home">
+            <End Role="Listing" EntitySet="Listing" />
+            <End Role="ListingImage" EntitySet="ListingImage" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="RealtorMLSModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Listing">
+          <Key>
+            <PropertyRef Name="ListingID" />
+          </Key>
+          <Property Name="MLS" Type="Int32" Nullable="false" />
+          <Property Name="Street1" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Street2" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="City" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="State" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Zipcode" Type="Int32" Nullable="false" />
+          <Property Name="Neighborhood" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="SalesPrice" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
+          <Property Name="DateListed" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="Bedrooms" Type="Int32" Nullable="false" />
+          <Property Name="Bathrooms" Type="Double" Nullable="false" />
+          <Property Name="GarageSize" Type="Double" />
+          <Property Name="SquareFeet" Type="Int32" Nullable="false" />
+          <Property Name="LotSize" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ListingID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <NavigationProperty Name="ListingImages" Relationship="Self.FK_ListingImage_Home" FromRole="Listing" ToRole="ListingImage" />
+        </EntityType>
+        <EntityType Name="ListingImage">
+          <Key>
+            <PropertyRef Name="ListingImageID" />
+          </Key>
+          <Property Name="ListingID" Type="Int32" Nullable="false" />
+          <Property Name="ImageName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Listing" Relationship="Self.FK_ListingImage_Home" FromRole="ListingImage" ToRole="Listing" />
+          <Property Name="ListingImageID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+        </EntityType>
+        <Association Name="FK_ListingImage_Home">
+          <End Role="Listing" Type="Self.Listing" Multiplicity="1" />
+          <End Role="ListingImage" Type="Self.ListingImage" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Listing">
+              <PropertyRef Name="ListingID" />
+            </Principal>
+            <Dependent Role="ListingImage">
+              <PropertyRef Name="ListingID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="RealtorMLSEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Listings" EntityType="Self.Listing" />
+          <EntitySet Name="ListingImages" EntityType="Self.ListingImage" />
+          <AssociationSet Name="FK_ListingImage_Home" Association="Self.FK_ListingImage_Home">
+            <End Role="Listing" EntitySet="Listings" />
+            <End Role="ListingImage" EntitySet="ListingImages" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="RealtorMLSModelStoreContainer" CdmEntityContainer="RealtorMLSEntities">
+          <EntitySetMapping Name="Listings">
+            <EntityTypeMapping TypeName="RealtorMLSModel.Listing">
+              <MappingFragment StoreEntitySet="Listing">
+                <ScalarProperty Name="MLS" ColumnName="MLS" />
+                <ScalarProperty Name="Street1" ColumnName="Street1" />
+                <ScalarProperty Name="Street2" ColumnName="Street2" />
+                <ScalarProperty Name="City" ColumnName="City" />
+                <ScalarProperty Name="State" ColumnName="State" />
+                <ScalarProperty Name="Zipcode" ColumnName="Zipcode" />
+                <ScalarProperty Name="Neighborhood" ColumnName="Neighborhood" />
+                <ScalarProperty Name="SalesPrice" ColumnName="SalesPrice" />
+                <ScalarProperty Name="DateListed" ColumnName="DateListed" />
+                <ScalarProperty Name="Bedrooms" ColumnName="Bedrooms" />
+                <ScalarProperty Name="Bathrooms" ColumnName="Bathrooms" />
+                <ScalarProperty Name="GarageSize" ColumnName="GarageSize" />
+                <ScalarProperty Name="SquareFeet" ColumnName="SquareFeet" />
+                <ScalarProperty Name="LotSize" ColumnName="LotSize" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="ListingID" ColumnName="ListingID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ListingImages">
+            <EntityTypeMapping TypeName="RealtorMLSModel.ListingImage">
+              <MappingFragment StoreEntitySet="ListingImage">
+                <ScalarProperty Name="ListingImageID" ColumnName="ListingImageID" />
+                <ScalarProperty Name="ListingID" ColumnName="ListingID" />
+                <ScalarProperty Name="ImageName" ColumnName="ImageName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
